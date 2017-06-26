@@ -39,7 +39,7 @@ function drawTextLines(ctx, text, x, y, fontsize) {
 
 }
 
-
+var fab
 
 new Vue({
   el: "#app",
@@ -49,8 +49,13 @@ new Vue({
     ctx: undefined
   },
   methods: {
+    addImage: function(img){
+      fabric.Image.fromURL(`../${img}.png`, function(img) {
+        img.set('left', 100).set('top', 100)
+        fab.add(img);
+      });
+    },
     redraw: function () {
-      console.log(this.input)
       var j = JSON.parse(this.input)
 
       var ctx = this.ctx
@@ -97,6 +102,28 @@ new Vue({
         self.redraw();
       }, 1000);
     });
+
+    var fabel = document.querySelector("#overlay")
+    fabel.width = `${w}`
+    fabel.height = `${h}`
+    fabel.style.width = `${w}px`
+    fabel.style.height = `${h}px`
+    fab = new fabric.Canvas('overlay');
+
+
+    // create a rectangle with angle=45
+    /*
+    var rect = new fabric.Rect({
+      left: 100,
+      top: 100,
+      fill: 'red',
+      width: 20,
+      height: 20,
+      angle: 45
+    });
+
+    fab.add(rect);
+    */
   }
 })
 
