@@ -18,8 +18,8 @@ Twitterで
 主語の大きい
 煽り画像を作るぞ！
 ---
-まだ画像出力
-できないんだ
+そういうことは
+やめような
 
 平和は守られた
 `
@@ -112,6 +112,17 @@ new Vue({
     removeObj: function(){
       fab.getActiveObject().remove();
     },
+    exportImage: function(){
+      var eimage = document.querySelector("#export")
+      var canvas = document.querySelector("#output")
+      var fabel = document.querySelector("#overlay")
+      var destCtx = eimage.getContext('2d');
+      destCtx.fillStyle = "white"
+      destCtx.fillRect(0,0,w,h)
+      destCtx.drawImage(canvas, 0, 0);
+      destCtx.drawImage(fabel, 0, 0);
+      window.open(eimage.toDataURL('image/png'));
+    },
     redraw: function () {
       var text = this.input
       var ctx = this.ctx
@@ -147,6 +158,12 @@ new Vue({
     }
   },
   mounted: function () {
+    var eimage = document.querySelector("#export")
+    eimage.width = `${w}`
+    eimage.height = `${h}`
+    eimage.style.width = `${w}px`
+    eimage.style.height = `${h}px`
+
     var canvas = document.querySelector("#output")
 
     canvas.width = `${w}`
