@@ -49,10 +49,11 @@
         <img class="stamp" @click="addImage('hage07')" src="hage07.png">
         <img class="stamp" @click="addImage('hage08')" src="hage08.png">
       </div>
+      <button @click="removeObj">選択削除</button>
     </div>
 
 
-    <div class="wrapper">
+    <div class="wrapper"  @keyup="onkeyup">
       <canvas id="output"></canvas>
       <canvas id="overlay"></canvas>
     </div>

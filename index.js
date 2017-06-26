@@ -55,6 +55,9 @@ new Vue({
         fab.add(img);
       });
     },
+    removeObj: function(){
+      fab.getActiveObject().remove();
+    },
     redraw: function () {
       var j = JSON.parse(this.input)
 
@@ -79,9 +82,7 @@ new Vue({
           x = ox + 20 + fontsize * (linelength - 1)
           drawTextLines(ctx, j[i][1], x, y, fontsize)
         }
-
       }
-
     }
   },
   mounted: function () {
@@ -110,7 +111,13 @@ new Vue({
     fabel.style.height = `${h}px`
     fab = new fabric.Canvas('overlay');
 
-
+    window.addEventListener('keyup', (ev)=>{
+      if(ev.keyCode === 46){
+        if(fab.getActiveObject()){
+          fab.getActiveObject().remove();
+        }
+      }
+    })
     // create a rectangle with angle=45
     /*
     var rect = new fabric.Rect({
