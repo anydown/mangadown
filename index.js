@@ -3,8 +3,7 @@ var example = `[
   ["そういうことだよ","なるほど"],
   ["わーい"],
   ["なんのこっちゃ"]
-]
-`
+]`
 
 
 function tategaki(ctx, text, x, y, px) {
@@ -31,25 +30,42 @@ new Vue({
   },
   methods: {
     redraw: function () {
+      console.log(this.input)
+      var j = JSON.parse(this.input)
+
       var ctx = this.ctx
 
       for(var i = 0; i < 4; i++){
+        var ox = 20
+        var oy = 20 + (280 + 20) * i
         ctx.strokeStyle="black"
         ctx.lineWidth=4
+        ctx.strokeRect(ox, oy, 420, 280)
 
-    //420 x 280
-    //20        
-        ctx.strokeRect(20, 20 + (280 + 20) * i, 420, 280)
+
+        var fontsize = 18;
+  //      ctx.clearRect(0, 0, 300, 800);
+        var x = ox + 400 - fontsize
+        var y = oy + 30
+        if(j[i].length > 0){
+          x = ox + 400 - fontsize
+          ctx.beginPath();
+          ctx.ellipse(x, y + 40, 80, 120, 0, 0, 2 * Math.PI);
+          ctx.stroke();
+
+          tategaki(ctx, j[i][0], x, y, fontsize);
+        }
+        if(j[i].length > 1){
+          x = ox + 30 - fontsize
+          ctx.beginPath();
+          ctx.ellipse(x, y + 40, 80, 120, 0, 0, 2 * Math.PI);
+          ctx.stroke();
+
+          tategaki(ctx, j[i][1], x, y, fontsize);
+        }
+
       }
 
-
-      var fontsize = 18;
-//      ctx.clearRect(0, 0, 300, 800);
-      for (var i = 0; i < 8; i++) {
-        var x = 400 - (fontsize * i)- i * 5
-        var y = 30
-        tategaki(ctx, "こんにちはー", x, y, fontsize);
-      }
     }
   },
   mounted: function () {
