@@ -29,7 +29,14 @@ function drawTextLines(ctx, text, x, y, fontsize) {
     tategaki(ctx, line, x - fontsize * l, y, fontsize);
     maxlen = maxlen < line.length ? line.length : maxlen
   }
-  ctx.strokeRect(sx, sy, -fontsize * lines.length, fontsize * maxlen)
+  //ctx.strokeRect(sx, sy, -fontsize * lines.length, fontsize * maxlen)
+  var cx = sx -fontsize * lines.length / 2
+  var cy = sy + fontsize * maxlen / 2
+
+  ctx.beginPath();
+  ctx.ellipse(cx + fontsize / 8, cy, fontsize * lines.length / 2 + fontsize * 2, fontsize * maxlen / 2  + fontsize * 2, 0, 0, 2 * Math.PI);
+  ctx.stroke();
+
 }
 
 
