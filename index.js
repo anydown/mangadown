@@ -103,7 +103,7 @@ new Vue({
   },
   methods: {
     addImage: function(img){
-      fabric.Image.fromURL(`../${img}.png`, function(img) {
+      fabric.Image.fromURL(`./${img}.png`, function(img) {
         img.set('left', 100).set('top', 100)
         fab.add(img);
       });
