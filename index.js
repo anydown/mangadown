@@ -44,16 +44,23 @@ function drawTextLines(ctx, text, x, y, fontsize) {
   var maxlen = 0
   for (var l = 0; l < lines.length; l++) {
     var line = lines[l]
-    tategaki(ctx, line, x - fontsize * l, y, fontsize);
     maxlen = maxlen < line.length ? line.length : maxlen
   }
   var cx = sx -fontsize * lines.length / 2
   var cy = sy + fontsize * maxlen / 2
 
+  ctx.save();
   ctx.beginPath();
+  ctx.fillStyle = "white"
   ctx.ellipse(cx + fontsize / 8, cy, fontsize * lines.length / 2 + fontsize * 2, fontsize * maxlen / 2  + fontsize * 2, 0, 0, 2 * Math.PI);
+  ctx.fill();
   ctx.stroke();
+  ctx.restore();
 
+  for (var l = 0; l < lines.length; l++) {
+    var line = lines[l]
+    tategaki(ctx, line, x - fontsize * l, y, fontsize);
+  }
 }
 
 var fab
