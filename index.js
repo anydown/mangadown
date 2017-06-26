@@ -58,6 +58,8 @@ function drawTextLines(ctx, text, x, y, fontsize) {
 }
 
 var fab
+var w = 420 + 20 * 2
+var h = (280 + 20) * 4 + 20
 
 new Vue({
   el: "#app",
@@ -111,9 +113,9 @@ new Vue({
       fab.getActiveObject().remove();
     },
     redraw: function () {
-      var j = this.input
-
+      var text = this.input
       var ctx = this.ctx
+      ctx.clearRect(0, 0, w, h)
 
       for (var i = 0; i < 4; i++) {
         var ox = 20
@@ -125,24 +127,27 @@ new Vue({
         var fontsize = 18;
         var x
         var y = oy + 30
-        if(j[i]){
-          if (j[i].length > 0) {
+        if(text[i]){
+          if (text[i].length > 0) {
             x = ox + 400 - fontsize
-            drawTextLines(ctx, j[i][0], x, y, fontsize)
+            drawTextLines(ctx, text[i][0], x, y, fontsize)
           }
-          if (j[i].length > 1) {
-            var linelength = j[i][1].split("\n").length;
+          if (text[i].length > 1) {
+            var linelength = text[i][1].split("\n").length;
             x = ox + 20 + fontsize * (linelength - 1)
-            drawTextLines(ctx, j[i][1], x, y, fontsize)
+            drawTextLines(ctx, text[i][1], x, y, fontsize)
           }
         }
       }
     }
   },
+  watch: {
+    "input": function(){
+      this.redraw()
+    }
+  },
   mounted: function () {
     var canvas = document.querySelector("#output")
-    var w = 420 + 20 * 2
-    var h = (280 + 20) * 4 + 20
 
     canvas.width = `${w}`
     canvas.height = `${h}`
