@@ -94,6 +94,9 @@ new Vue({
 
         msg.push(line)
       }
+      if(koma.length > 0){
+        komas.push(koma)
+      }
       return komas
     }
   },
@@ -122,14 +125,16 @@ new Vue({
         var fontsize = 18;
         var x
         var y = oy + 30
-        if (j[i].length > 0) {
-          x = ox + 400 - fontsize
-          drawTextLines(ctx, j[i][0], x, y, fontsize)
-        }
-        if (j[i].length > 1) {
-          var linelength = j[i][1].split("\n").length;
-          x = ox + 20 + fontsize * (linelength - 1)
-          drawTextLines(ctx, j[i][1], x, y, fontsize)
+        if(j[i]){
+          if (j[i].length > 0) {
+            x = ox + 400 - fontsize
+            drawTextLines(ctx, j[i][0], x, y, fontsize)
+          }
+          if (j[i].length > 1) {
+            var linelength = j[i][1].split("\n").length;
+            x = ox + 20 + fontsize * (linelength - 1)
+            drawTextLines(ctx, j[i][1], x, y, fontsize)
+          }
         }
       }
     }
