@@ -1,10 +1,28 @@
+
+/*
 var example = `[
   ["テストだよー\\nてすてす","どういうことだよ\\nといいつつ\\nてすてす"],
   ["そういうことだよ","なるほど"],
   ["わーい"],
   ["なんのこっちゃ"]
 ]`
+*/
 
+var example = `テストだよー
+てすてす
+
+どういうことだよ
+といいつつ
+てすてす
+----
+そういうことだよ
+
+なるほど
+---
+わーい
+---
+なんのこっちゃ
+`
 
 function tategaki(ctx, text, x, y, px) {
   ctx.fillStyle = ""
@@ -45,8 +63,39 @@ new Vue({
   el: "#app",
   data: {
     msg: "Hello",
-    input: example,
+    rawinput: example,
     ctx: undefined
+  },
+  computed: {
+    input: function(){
+      var lines = this.rawinput.split("\n")
+      var komas = []
+      var koma = []
+      var msg = []
+      for(var i = 0; i < lines.length; i++){
+        var line = lines[i]
+        //空行
+        if(line.trim() === "" && msg.length > 0){
+          koma.push(msg.join("\n"))
+          msg = []
+          continue
+        }
+
+        //改ページ
+        if(line.match(/-+/)){
+          if(msg.length > 0){
+            koma.push(msg.join("\n"))
+            msg = []
+          }
+          komas.push(koma)
+          koma = []
+          continue
+        }
+
+        msg.push(line)
+      }
+      return komas
+    }
   },
   methods: {
     addImage: function(img){
@@ -59,7 +108,7 @@ new Vue({
       fab.getActiveObject().remove();
     },
     redraw: function () {
-      var j = JSON.parse(this.input)
+      var j = this.input
 
       var ctx = this.ctx
 
@@ -118,19 +167,6 @@ new Vue({
         }
       }
     })
-    // create a rectangle with angle=45
-    /*
-    var rect = new fabric.Rect({
-      left: 100,
-      top: 100,
-      fill: 'red',
-      width: 20,
-      height: 20,
-      angle: 45
-    });
-
-    fab.add(rect);
-    */
   }
 })
 
