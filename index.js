@@ -47,7 +47,6 @@ function drawTextLines(ctx, text, x, y, fontsize) {
     tategaki(ctx, line, x - fontsize * l, y, fontsize);
     maxlen = maxlen < line.length ? line.length : maxlen
   }
-  //ctx.strokeRect(sx, sy, -fontsize * lines.length, fontsize * maxlen)
   var cx = sx -fontsize * lines.length / 2
   var cy = sy + fontsize * maxlen / 2
 
