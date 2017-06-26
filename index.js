@@ -1,5 +1,5 @@
 var example = `[
-  ["テストだよー","どういうことだよ"],
+  ["テストだよー\\nてすてす","どういうことだよ\\nといいつつ\\nてすてす"],
   ["そういうことだよ","なるほど"],
   ["わーい"],
   ["なんのこっちゃ"]
@@ -42,25 +42,25 @@ new Vue({
         ctx.lineWidth=4
         ctx.strokeRect(ox, oy, 420, 280)
 
-
         var fontsize = 18;
-  //      ctx.clearRect(0, 0, 300, 800);
-        var x = ox + 400 - fontsize
+        var x
         var y = oy + 30
         if(j[i].length > 0){
           x = ox + 400 - fontsize
-          ctx.beginPath();
-          ctx.ellipse(x, y + 40, 80, 120, 0, 0, 2 * Math.PI);
-          ctx.stroke();
-
-          tategaki(ctx, j[i][0], x, y, fontsize);
+          var lines = j[i][0].split("\n");
+          var sx = x + fontsize
+          var sy = y
+          var maxlen = 0
+          for(var l = 0; l < lines.length; l++){
+            var line = lines[l]
+            tategaki(ctx, line, x - fontsize * l, y, fontsize);
+            maxlen = maxlen < line.length ? line.length : maxlen
+          }
+          ctx.strokeRect(sx, sy, -fontsize * lines.length, fontsize * maxlen)
         }
         if(j[i].length > 1){
           x = ox + 30 - fontsize
-          ctx.beginPath();
-          ctx.ellipse(x, y + 40, 80, 120, 0, 0, 2 * Math.PI);
-          ctx.stroke();
-
+          ctx.strokeRect(x, y, fontsize, fontsize * j[i][1].length)
           tategaki(ctx, j[i][1], x, y, fontsize);
         }
 
