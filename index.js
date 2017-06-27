@@ -122,7 +122,13 @@ new Vue({
       });
     },
     removeObj: function () {
-      fab.getActiveObject().remove();
+        if (fab.getActiveGroup()) {
+          fab.getActiveGroup().forEachObject(function(o){ fab.remove(o) });
+          fab.discardActiveGroup().renderAll();
+        }
+        if (fab.getActiveObject()) {
+          fab.getActiveObject().remove();
+        }
     },
     exportImage: function () {
       var eimage = document.querySelector("#export")
@@ -201,6 +207,10 @@ new Vue({
 
     window.addEventListener('keyup', (ev) => {
       if (ev.keyCode === 46) {
+        if (fab.getActiveGroup()) {
+          fab.getActiveGroup().forEachObject(function(o){ fab.remove(o) });
+          fab.discardActiveGroup().renderAll();
+        }
         if (fab.getActiveObject()) {
           fab.getActiveObject().remove();
         }
