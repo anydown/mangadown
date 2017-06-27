@@ -124,7 +124,7 @@ new Vue({
       var ctx = this.ctx
       ctx.clearRect(0, 0, w, h)
 
-      for (var i = 0; i < 4; i++) {
+      for (var i = 0; i < text.length; i++) {
         var ox = 20
         var oy = 20 + (280 + 20) * i
         ctx.strokeStyle = "black"
