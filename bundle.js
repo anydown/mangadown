@@ -107,6 +107,8 @@ new Vue({
         }
     },
     exportImage: function () {
+      fab.discardActiveObject().renderAll();
+      fab.discardActiveGroup().renderAll();
       var eimage = document.querySelector("#export")
       var canvas = document.querySelector("#output")
       var fabel = document.querySelector("#overlay")
