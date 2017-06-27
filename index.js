@@ -72,7 +72,8 @@ new Vue({
   data: {
     msg: "Hello",
     rawinput: example,
-    ctx: undefined
+    ctx: undefined,
+    isDrawingMode: false,
   },
   computed: {
     input: function(){
@@ -109,6 +110,11 @@ new Vue({
     }
   },
   methods: {
+    toggleDrawingMode: function(){
+      this.isDrawingMode = !this.isDrawingMode
+      fab.isDrawingMode = this.isDrawingMode;
+      fab.freeDrawingBrush.width = 5;
+    },
     addImage: function(img){
       fabric.Image.fromURL(`./${img}.png`, function(img) {
         img.set('left', 100).set('top', 100)

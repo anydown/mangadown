@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=500">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mangadown</title>
 
@@ -32,6 +32,7 @@
         </textarea>
         <div>
           <button @click="exportImage" class="button" style="width: 100%;">画像出力</button>
+          <button @click="toggleDrawingMode" class="button" style="width: 100%;">手書きモード：{{isDrawingMode}}</button>
         </div>
         <p>スタンプ</p>
         <div>
