@@ -9,9 +9,10 @@ body{
   writing-mode: vertical-rl;
 }
 #input{
-  height: 300px;
+  height: 60rem;
   background: #333;
   color: white;
+  margin-bottom: 0;
 }
 .wrapper{
   position: relative;
@@ -35,8 +36,28 @@ canvas{
 }
 .title{
   text-align: center;
-  margin-top: 2rem;
+  margin: 5rem 0;
 }
 .container{
   margin-bottom: 2rem;
+}
+
+.svgicon{
+  margin-bottom: -10px;
+}
+
+.stamp-title{
+  color: #a5a5a5;
+  text-align: center;
+  margin: 1rem 0 1rem 0;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin: 2rem 0 2rem 0;
+}
+
+.stamp-box{
+  background: #FAFAFA;
+  margin-top: 3rem;
+  padding: 0.5rem 2rem;
+  border-radius: 4px;
 }
