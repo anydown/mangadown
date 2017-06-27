@@ -22,13 +22,13 @@ function drawTextLines(ctx, text, x, y, fontsize) {
     var line = lines[l]
     maxlen = maxlen < line.length ? line.length : maxlen
   }
-  var cx = sx -fontsize * lines.length / 2
+  var cx = sx - fontsize * lines.length / 2
   var cy = sy + fontsize * maxlen / 2
 
   ctx.save();
   ctx.beginPath();
   ctx.fillStyle = "white"
-  ctx.ellipse(cx + fontsize / 8, cy, fontsize * lines.length / 2 + fontsize * 2, fontsize * maxlen / 2  + fontsize * 2, 0, 0, 2 * Math.PI);
+  ctx.ellipse(cx + fontsize / 8, cy, fontsize * lines.length / 2 + fontsize * 2, fontsize * maxlen / 2 + fontsize * 2, 0, 0, 2 * Math.PI);
   ctx.fill();
   ctx.stroke();
   ctx.restore();
@@ -52,23 +52,23 @@ new Vue({
     isDrawingMode: false,
   },
   computed: {
-    input: function(){
+    input: function () {
       var lines = this.rawinput.split("\n")
       var komas = []
       var koma = []
       var msg = []
-      for(var i = 0; i < lines.length; i++){
+      for (var i = 0; i < lines.length; i++) {
         var line = lines[i]
         //空行
-        if(line.trim() === "" && msg.length > 0){
+        if (line.trim() === "" && msg.length > 0) {
           koma.push(msg.join("\n"))
           msg = []
           continue
         }
 
         //改ページ
-        if(line.match(/-+/)){
-          if(msg.length > 0){
+        if (line.match(/-+/)) {
+          if (msg.length > 0) {
             koma.push(msg.join("\n"))
             msg = []
           }
@@ -79,34 +79,34 @@ new Vue({
 
         msg.push(line)
       }
-      if(koma.length > 0){
+      if (koma.length > 0) {
         komas.push(koma)
       }
       return komas
     }
   },
   methods: {
-    toggleDrawingMode: function(){
+    toggleDrawingMode: function () {
       this.isDrawingMode = !this.isDrawingMode
       fab.isDrawingMode = this.isDrawingMode;
       fab.freeDrawingBrush.width = 5;
     },
-    addImage: function(img){
-      fabric.Image.fromURL(("./" + img + ".png"), function(img) {
+    addImage: function (img) {
+      fabric.Image.fromURL(("./" + img + ".png"), function (img) {
         img.set('left', 100).set('top', 100)
         fab.add(img);
       });
     },
-    removeObj: function(){
+    removeObj: function () {
       fab.getActiveObject().remove();
     },
-    exportImage: function(){
+    exportImage: function () {
       var eimage = document.querySelector("#export")
       var canvas = document.querySelector("#output")
       var fabel = document.querySelector("#overlay")
       var destCtx = eimage.getContext('2d');
       destCtx.fillStyle = "white"
-      destCtx.fillRect(0,0,w,h)
+      destCtx.fillRect(0, 0, w, h)
       destCtx.drawImage(canvas, 0, 0);
       destCtx.drawImage(fabel, 0, 0);
       window.open(eimage.toDataURL('image/png'));
@@ -126,7 +126,7 @@ new Vue({
         var fontsize = 18;
         var x
         var y = oy + 30
-        if(text[i]){
+        if (text[i]) {
           if (text[i].length > 0) {
             x = ox + 400 - fontsize
             drawTextLines(ctx, text[i][0], x, y, fontsize)
@@ -141,7 +141,7 @@ new Vue({
     }
   },
   watch: {
-    "input": function(){
+    "input": function () {
       this.redraw()
     }
   },
@@ -175,13 +175,31 @@ new Vue({
     fabel.style.height = h + "px"
     fab = new fabric.Canvas('overlay');
 
-    window.addEventListener('keyup', function (ev){
-      if(ev.keyCode === 46){
-        if(fab.getActiveObject()){
+    window.addEventListener('keyup', function (ev) {
+      if (ev.keyCode === 46) {
+        if (fab.getActiveObject()) {
           fab.getActiveObject().remove();
         }
       }
     })
+
+    document.getElementById('imgLoader').onchange = function handleImage(e) {
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        var imgObj = new Image();
+        imgObj.src = event.target.result;
+        imgObj.onload = function () {
+          var image = new fabric.Image(imgObj);
+          image.set({
+            height: 200,
+            width: 200
+          });
+          fab.add(image);
+          fab.renderAll();
+        }
+      }
+      reader.readAsDataURL(e.target.files[0]);
+    }
   }
 })
 
