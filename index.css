@@ -28,7 +28,7 @@ canvas{
   width: 460px;
 }
 .stamp{
-  height: 6rem;
+  height: 10rem;
   cursor: pointer;
 }
 #export{
@@ -60,4 +60,12 @@ canvas{
   margin-top: 3rem;
   padding: 0.5rem 2rem;
   border-radius: 4px;
+}
+
+.footer{
+  line-height: 12rem;
+  margin-top: 4rem;
+  color: white;
+  text-align: center;
+  background: #333;
 }
