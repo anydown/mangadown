@@ -30,11 +30,14 @@
       <div class="controls column">
         <textarea id="input" v-model="rawinput">
         </textarea>
+
+
+
         <div>
           <button @click="exportImage" class="button" style="width: 100%;">画像出力</button>
           <button @click="toggleDrawingMode" class="button" style="width: 100%;">手書きモード：{{isDrawingMode}}</button>
         </div>
-        <p>スタンプ</p>
+        <h3>スタンプ</h3>
         <div>
           <img class="stamp" @click="addImage('hage01')" src="hage01.png">
           <img class="stamp" @click="addImage('hage02')" src="hage02.png">
@@ -44,6 +47,10 @@
           <img class="stamp" @click="addImage('hage06')" src="hage06.png">
           <img class="stamp" @click="addImage('hage07')" src="hage07.png">
           <img class="stamp" @click="addImage('hage08')" src="hage08.png">
+          <form id="uploadImg">
+            ローカル画像を使用：
+            <input type="file" id="imgLoader" />
+          </form>
         </div>
         <div>
           <button @click="removeObj" class="button button-small button-clear">選択削除</button>
