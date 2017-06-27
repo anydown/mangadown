@@ -63,9 +63,10 @@ canvas{
 }
 
 .footer{
-  line-height: 12rem;
+  line-height: 2rem;
   margin-top: 4rem;
   color: white;
   text-align: center;
   background: #333;
+  padding: 4rem;
 }
