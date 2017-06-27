@@ -1,0 +1,23 @@
+{
+  "name": "mangadown",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "buble index.js > bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anydown/mangadown.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anydown/mangadown/issues"
+  },
+  "homepage": "https://github.com/anydown/mangadown#readme",
+  "devDependencies": {
+    "buble": "^0.15.2"
+  }
+}

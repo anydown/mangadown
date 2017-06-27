@@ -1,0 +1,36 @@
+body{
+  background: #EEE;
+  margin: 2rem;
+}
+#output{
+  position: absolute;
+  background: white;
+  -ms-writing-mode: tb-rl;
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;    }
+#input{
+  width: 400px;
+  height: 300px;
+  
+}
+.wrapper{
+  position: relative;
+}
+canvas{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.stamp{
+  height: 4rem;
+  cursor: pointer;
+}
+#export{
+  display: none;
+}
+.pane{
+  display: flex;
+}
+.controls{
+  padding: 0 2rem;
+}
