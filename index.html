@@ -1,27 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mangadown</title>
+
+  <!-- CSS Reset -->
+  <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+
+  <!-- Milligram CSS minified -->
+  <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
   <link rel="stylesheet" href="index.css">
 
 </head>
+
 <body>
-  <h1>白ハゲ４コマメーカー</h1>
-  <div id="app">
-    <div class="pane">
-      <div>
-        <div class="wrapper">
+  <div class="container">
+    <h2 class="title">白ハゲ４コマメーカー</h2>
+    <div id="app" class="row">
+      <div class="column">
+        <div class="wrapper canvas-wrapper">
           <canvas id="output"></canvas>
           <canvas id="overlay"></canvas>
         </div>
       </div>
 
-      <div class="controls">
+      <div class="controls column">
         <textarea id="input" v-model="rawinput">
         </textarea>
+        <div>
+          <button @click="exportImage" class="button" style="width: 100%;">画像出力</button>
+        </div>
         <p>スタンプ</p>
         <div>
           <img class="stamp" @click="addImage('hage01')" src="hage01.png">
@@ -34,20 +45,25 @@
           <img class="stamp" @click="addImage('hage08')" src="hage08.png">
         </div>
         <div>
-          <button @click="exportImage" style="color: blue;">画像出力</button>
-          <button @click="removeObj">選択削除</button>
+          <button @click="removeObj" class="button button-small button-clear">選択削除</button>
         </div>
       </div>
 
     </div>
-
-
-
     <canvas id="export"></canvas>
   </div>
-  
+
+  <div class="container">
+    <div class="row">
+      <div class="column">
+        <a href="https://github.com/anydown/mangadown">GitHub</a>
+      </div>
+    </div>
+  </div>
+
   <script src="https://unpkg.com/vue@2.3.4"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.12/fabric.min.js"></script>
   <script src="bundle.js"></script>
 </body>
+
 </html>
