@@ -70,3 +70,11 @@ canvas{
   background: #333;
   padding: 4rem;
 }
+
+.news {
+  width: 30rem;
+  margin: 2rem auto;
+  color: #c54fff;
+  font-size: 1rem;
+  text-align: center;
+}
