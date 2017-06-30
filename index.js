@@ -140,7 +140,7 @@ new Vue({
       destCtx.fillStyle = "white"
       destCtx.fillRect(0, 0, w, h)
       destCtx.drawImage(canvas, 0, 0);
-      destCtx.drawImage(fabel, 0, 0);
+      destCtx.drawImage(fabel, 0, 0, w, h);
       window.open(eimage.toDataURL('image/png'));
     },
     redraw: function () {
