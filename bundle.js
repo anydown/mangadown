@@ -1,8 +1,8 @@
 var example = "このツールは\nTwitterで\nよく流れている\nタイプの４コマを\n作るツールだ…\n\nテキストを編集すると\nセリフが変更されるんだね\n----\n白ハゲスタンプも\n押すことが出来る\n\nなるほど\n---\nよーし\n\nこのツールで\n主語の大きい\n煽り画像を作るぞ！\n---\nそういうことは\nやめような\n\n平和は守られた\n"
 
-function tategaki(ctx, text, x, y, px) {
+function tategaki(ctx, text, x, y, px, font) {
   ctx.fillStyle = ""
-  ctx.font = px + "px 'newfont'";
+  ctx.font = px + "px '" + font + "'";
   for (var i = 0; i < text.length; i++) {
     ctx.save();
     ctx.translate(x, y + px * i);
@@ -13,7 +13,7 @@ function tategaki(ctx, text, x, y, px) {
   }
 }
 
-function drawTextLines(ctx, text, x, y, fontsize) {
+function drawTextLines(ctx, text, x, y, fontsize, font) {
   var lines = text.split("\n");
   var sx = x + fontsize
   var sy = y
@@ -35,13 +35,15 @@ function drawTextLines(ctx, text, x, y, fontsize) {
 
   for (var l = 0; l < lines.length; l++) {
     var line = lines[l]
-    tategaki(ctx, line, x - fontsize * l, y, fontsize);
+    tategaki(ctx, line, x - fontsize * l, y, fontsize, font);
   }
 }
 
 var fab
 var w = 420 + 20 * 2
 var h = (280 + 20) * 4 + 20
+
+var loadedFonts = {}
 
 new Vue({
   el: "#app",
@@ -50,6 +52,7 @@ new Vue({
     rawinput: example,
     ctx: undefined,
     isDrawingMode: false,
+    font: ""
   },
   computed: {
     input: function () {
@@ -120,6 +123,8 @@ new Vue({
       window.open(eimage.toDataURL('image/png'));
     },
     redraw: function () {
+      var this$1 = this;
+
       var text = this.input
       var ctx = this.ctx
       ctx.clearRect(0, 0, w, h)
@@ -137,12 +142,12 @@ new Vue({
         if (text[i]) {
           if (text[i].length > 0) {
             x = ox + 400 - fontsize
-            drawTextLines(ctx, text[i][0], x, y, fontsize)
+            drawTextLines(ctx, text[i][0], x, y, fontsize, this$1.font)
           }
           if (text[i].length > 1) {
             var linelength = text[i][1].split("\n").length;
             x = ox + 20 + fontsize * (linelength - 1)
-            drawTextLines(ctx, text[i][1], x, y, fontsize)
+            drawTextLines(ctx, text[i][1], x, y, fontsize, this$1.font)
           }
         }
       }
@@ -151,6 +156,31 @@ new Vue({
   watch: {
     "input": function () {
       this.redraw()
+    },
+    "font": function(item){
+      var self = this
+      var fontName = item
+
+      if(!loadedFonts[item]){
+        var fonts = {
+          "yasashisa": "url(07YasashisaAntique.otf)",
+          "noto-tc": "url(NotoSerifTC-Regular.otf)"
+        }
+
+        var font = new FontFace(item, fonts[item], {});
+        font.load().then(function (loadedFace) {
+          setTimeout(function () {
+            document.fonts.add(loadedFace);
+            console.log("font loaded")
+            self.redraw();
+          }, 1000);
+        });
+      }
+
+      setTimeout(function () {
+        self.redraw();
+      }, 1000);
+      //var font = new FontFace("newfont", "url(07YasashisaAntique.otf)", {});
     }
   },
   mounted: function () {
@@ -167,14 +197,6 @@ new Vue({
     canvas.style.width = w + "px"
     canvas.style.height = h + "px"
     this.ctx = canvas.getContext("2d")
-    var font = new FontFace("newfont", "url(07YasashisaAntique.otf)", {});
-    var self = this
-    font.load().then(function (loadedFace) {
-      setTimeout(function () {
-        document.fonts.add(loadedFace);
-        self.redraw();
-      }, 1000);
-    });
 
     var fabel = document.querySelector("#overlay")
     fabel.width = "" + w
@@ -212,6 +234,8 @@ new Vue({
       }
       reader.readAsDataURL(e.target.files[0]);
     }
+
+    this.font = "yasashisa"
   }
 })
 
