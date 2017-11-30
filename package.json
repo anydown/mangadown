@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/anydown/mangadown#readme",
   "devDependencies": {
-    "buble": "^0.15.2"
+    "buble": "^0.18.0"
   }
 }
