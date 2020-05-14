@@ -1,13 +1,21 @@
 var example = "このツールは\nTwitterで\nよく流れている\nタイプの４コマを\n作るツールだ…\n\nテキストを編集すると\nセリフが変更されるんだね\n----\n白ハゲスタンプも\n押すことが出来る\n\nなるほど\n---\nよーし\n\nこのツールで\n主語の大きい\n煽り画像を作るぞ！\n---\nそういうことは\nやめような\n\n平和は守られた\n"
 
+function isFirefox() {
+  return navigator.userAgent.toLowerCase().includes("firefox");
+}
+
 function tategaki(ctx, text, x, y, px, font) {
   ctx.fillStyle = ""
   ctx.font = px + "px '" + font + "'";
   for (var i = 0; i < text.length; i++) {
     ctx.save();
     ctx.translate(x, y + px * i);
-    ctx.rotate(Math.PI / 2);
-    ctx.translate(2, -px - 3);
+    if (isFirefox()) {
+      ctx.translate(10, -px);
+    } else {
+      ctx.rotate(Math.PI / 2);
+      ctx.translate(2, -px - 3);
+    }
     ctx.fillText(text[i], 0, px);
     ctx.restore();
   }
