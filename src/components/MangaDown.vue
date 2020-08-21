@@ -114,86 +114,8 @@
 </template>
 
 <script>
-var example = `このツールは
-Twitterで
-よく流れている
-タイプの４コマを
-作るツールだ…
-
-テキストを編集すると
-セリフが変更されるんだね
-----
-白ハゲスタンプも
-押すことが出来る
-
-なるほど
----
-よーし
-
-このツールで
-主語の大きい
-煽り画像を作るぞ！
----
-そういうことは
-やめような
-
-平和は守られた
-`;
-
-function isFirefox() {
-  return navigator.userAgent.toLowerCase().includes("firefox");
-}
-
-function tategaki(ctx, text, x, y, px, font) {
-  ctx.fillStyle = "";
-  ctx.font = px + `px '${font}'`;
-  for (let i = 0; i < text.length; i++) {
-    ctx.save();
-    ctx.translate(x, y + px * i);
-    if (isFirefox()) {
-      ctx.translate(10, -px);
-    } else {
-      ctx.rotate(Math.PI / 2);
-      ctx.translate(2, -px - 3);
-    }
-    ctx.fillText(text[i], 0, px);
-    ctx.restore();
-  }
-}
-
-function drawTextLines(ctx, text, x, y, fontsize, font) {
-  const lines = text.split("\n");
-  const sx = x + fontsize;
-  const sy = y;
-  let maxlen = 0;
-  for (let l = 0; l < lines.length; l++) {
-    const line = lines[l];
-    maxlen = maxlen < line.length ? line.length : maxlen;
-  }
-  const cx = sx - (fontsize * lines.length) / 2;
-  const cy = sy + (fontsize * maxlen) / 2;
-
-  ctx.save();
-  ctx.beginPath();
-  ctx.fillStyle = "white";
-  ctx.ellipse(
-    cx + fontsize / 8,
-    cy,
-    (fontsize * lines.length) / 2 + fontsize * 2,
-    (fontsize * maxlen) / 2 + fontsize * 2,
-    0,
-    0,
-    2 * Math.PI
-  );
-  ctx.fill();
-  ctx.stroke();
-  ctx.restore();
-
-  for (let l = 0; l < lines.length; l++) {
-    const line = lines[l];
-    tategaki(ctx, line, x - fontsize * l, y, fontsize, font);
-  }
-}
+import { example } from "./example";
+import { tategaki, drawTextLines } from "./draw";
 
 var fab;
 const w = 420 + 20 * 2;
