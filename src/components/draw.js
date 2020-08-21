@@ -53,3 +53,29 @@ export function drawTextLines(ctx, text, x, y, fontsize, font) {
         tategaki(ctx, line, x - fontsize * l, y, fontsize, font);
     }
 }
+
+export function drawKomas(ctx, text, font) {
+    for (let i = 0; i < text.length; i++) {
+        const ox = 20;
+        const oy = 20 + (280 + 20) * i;
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 4;
+        ctx.strokeRect(ox, oy, 420, 280);
+
+        const fontsize = 18;
+        let x;
+        const y = oy + 30;
+        if (text[i]) {
+            if (text[i].length > 0) {
+                x = ox + 400 - fontsize;
+                drawTextLines(ctx, text[i][0], x, y, fontsize, font);
+            }
+            if (text[i].length > 1) {
+                const linelength = text[i][1].split("\n").length;
+                x = ox + 20 + fontsize * (linelength - 1);
+                drawTextLines(ctx, text[i][1], x, y, fontsize, font);
+            }
+        }
+    }
+
+}

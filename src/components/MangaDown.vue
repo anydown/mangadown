@@ -115,9 +115,10 @@
 
 <script>
 import { example } from "./example";
-import { tategaki, drawTextLines } from "./draw";
+import { compile } from "./compile";
+import { tategaki, drawTextLines, drawKomas } from "./draw";
 
-var fab;
+let fab;
 const w = 420 + 20 * 2;
 const h = (280 + 20) * 4 + 20;
 
@@ -135,36 +136,7 @@ export default {
   },
   computed: {
     input() {
-      const lines = this.rawinput.split("\n");
-      const komas = [];
-      let koma = [];
-      let msg = [];
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
-        //空行
-        if (line.trim() === "" && msg.length > 0) {
-          koma.push(msg.join("\n"));
-          msg = [];
-          continue;
-        }
-
-        //改ページ
-        if (line.match(/-+/)) {
-          if (msg.length > 0) {
-            koma.push(msg.join("\n"));
-            msg = [];
-          }
-          komas.push(koma);
-          koma = [];
-          continue;
-        }
-
-        msg.push(line);
-      }
-      if (koma.length > 0) {
-        komas.push(koma);
-      }
-      return komas;
+      return compile(this.rawinput);
     },
   },
   methods: {
@@ -208,28 +180,7 @@ export default {
       const ctx = this.ctx;
       ctx.clearRect(0, 0, w, h);
 
-      for (let i = 0; i < text.length; i++) {
-        const ox = 20;
-        const oy = 20 + (280 + 20) * i;
-        ctx.strokeStyle = "black";
-        ctx.lineWidth = 4;
-        ctx.strokeRect(ox, oy, 420, 280);
-
-        const fontsize = 18;
-        let x;
-        const y = oy + 30;
-        if (text[i]) {
-          if (text[i].length > 0) {
-            x = ox + 400 - fontsize;
-            drawTextLines(ctx, text[i][0], x, y, fontsize, this.font);
-          }
-          if (text[i].length > 1) {
-            const linelength = text[i][1].split("\n").length;
-            x = ox + 20 + fontsize * (linelength - 1);
-            drawTextLines(ctx, text[i][1], x, y, fontsize, this.font);
-          }
-        }
-      }
+      drawKomas(ctx, text, this.font);
     },
   },
   watch: {
