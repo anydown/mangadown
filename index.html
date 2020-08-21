@@ -3,132 +3,22 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Mangadown</title>
-
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- CSS Reset -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@7.0.0/normalize.min.css">
 
   <!-- Milligram CSS minified -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/milligram@1.3.0/dist/milligram.min.css">
-  <link rel="stylesheet" href="index.css">
 
+  <title>MangaDown</title>
 </head>
 
 <body>
-  <div class="container">
-    <h2 class="title">
-      <img src="./hage_t1.png" width="40px"> Mangadown
-      <img src="./hage_t2.png" width="40px">
-    </h2>
-
-    <div id="app" class="row">
-      <div class="column">
-        <div class="wrapper canvas-wrapper">
-          <canvas id="output"></canvas>
-          <canvas id="overlay"></canvas>
-        </div>
-      </div>
-
-      <div class="controls column">
-        <textarea id="input" v-model="rawinput">
-        </textarea>
-
-
-
-        <div>
-          <button @click="exportImage" class="button" style="width: 100%;">PNG形式で保存</button>
-
-          <div class="row">
-            <div class="column column-50">
-              <button @click="toggleDrawingMode" class="button" :class="{'button-outline': !isDrawingMode}" style="width: 100%; height: 5rem; line-height: 5rem;">
-              <svg class="svgicon" id="i-edit" viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z" />
-              </svg>
-              手書きモード<span v-if="isDrawingMode"> ON</span>
-              </button>
-            </div>
-            <div class="column column-50">
-              <button @click="removeObj" class="button button-outline" style="width: 100%; height: 5rem; line-height: 5rem;">
-              <svg class="svgicon" id="i-trash" viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                <path d="M28 6 L6 6 8 30 24 30 26 6 4 6 M16 12 L16 24 M21 12 L20 24 M11 12 L12 24 M12 6 L13 2 19 2 20 6" />
-              </svg>
-              選択中の図形を削除
-              </button>
-            </div>
-
-          </div>
-
-          <div>
-            <h3>font</h3>
-            <select v-model="font">
-              <option value="yasashisa">やさしさアンティーク</option>
-              <option value="noto-tc">Noto Traditional Chinese</option>
-            </select>
-          </div>
-
-          <div class="stamp-box">
-            <h3 class="stamp-title">スタンプ</h3>
-            <div>
-              <img class="stamp" @click="addImage('hage01')" src="hage01.png">
-              <img class="stamp" @click="addImage('hage02')" src="hage02.png">
-              <img class="stamp" @click="addImage('hage03')" src="hage03.png">
-              <img class="stamp" @click="addImage('hage04')" src="hage04.png">
-              <img class="stamp" @click="addImage('hage05')" src="hage05.png">
-              <img class="stamp" @click="addImage('hage06')" src="hage06.png">
-              <img class="stamp" @click="addImage('hage07')" src="hage07.png">
-              <img class="stamp" @click="addImage('hage08')" src="hage08.png">
-              <img class="stamp" @click="addImage('hage09')" src="hage09.png">
-              <img class="stamp" @click="addImage('hage10')" src="hage10.png">
-              <img class="stamp" @click="addImage('hage11')" src="hage11.png">
-              <img class="stamp" @click="addImage('hage12')" src="hage12.png">
-              <img class="stamp" @click="addImage('hage13')" src="hage13.png">
-              <img class="stamp" @click="addImage('fx01')" src="fx01.png">
-              <img class="stamp" @click="addImage('fx02')" src="fx02.png">
-              <img class="stamp" @click="addImage('moji01')" src="moji01.png">
-              <img class="stamp" @click="addImage('moji02')" src="moji02.png">
-              <img class="stamp" @click="addImage('moji03')" src="moji03.png">
-              <img class="stamp" @click="addImage('moji04')" src="moji04.png">
-              <img class="stamp" @click="addImage('moji05')" src="moji05.png">
-              <img class="stamp" @click="addImage('zura01')" src="zura01.png">
-              <img class="stamp" @click="addImage('zura02')" src="zura02.png">
-              <img class="stamp" @click="addImage('zura03')" src="zura03.png">
-              <img class="stamp" @click="addImage('zura04')" src="zura04.png">
-
-            </div>
-            <h3 class="stamp-title">自作スタンプの読み込み</h3>
-            <form id="uploadImg">
-              <input type="file" id="imgLoader" />
-            </form>
-
-          </div>
-        </div>
-
-      </div>
-      <canvas id="export"></canvas>
-    </div>
-
-  </div>
-  <div class="footer">
-    <div class="container">
-      <div class="row">
-        <div class="column">
-          <p>
-            Hosted on <a href="https://github.com/anydown/mangadown">GitHub</a>
-          </p>
-          <a href="https://twitter.com/intent/tweet?button_hashtag=%E7%99%BD%E3%83%8F%E3%82%B2%EF%BC%94%E3%82%B3%E3%83%9E%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC"
-            class="twitter-hashtag-button" data-related="hashedrock" data-url="https://anydown.github.io/mangadown/">Tweet #%E7%99%BD%E3%83%8F%E3%82%B2%EF%BC%94%E3%82%B3%E3%83%9E%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC</a>
-          <script>
-            !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');
-          </script>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://unpkg.com/vue@2.3.4"></script>
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.12/fabric.min.js"></script>
-  <script src="bundle.js"></script>
+
 </body>
 
 </html>
