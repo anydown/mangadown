@@ -173,7 +173,11 @@ export default {
       destCtx.fillRect(0, 0, w, h);
       destCtx.drawImage(canvas, 0, 0);
       destCtx.drawImage(fabel, 0, 0, w, h);
-      window.open(eimage.toDataURL("image/png"));
+
+      const a = document.createElement("a");
+      a.href = eimage.toDataURL("image/png");
+      a.setAttribute("download", "comic.png");
+      a.dispatchEvent(new MouseEvent("click"));
     },
     redraw() {
       const text = this.input;
