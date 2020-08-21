@@ -116,7 +116,7 @@
 <script>
 import { example } from "./example";
 import { compile } from "./compile";
-import { tategaki, drawTextLines, drawKomas } from "./draw";
+import { tategaki, drawText, drawKomas } from "./draw";
 
 let fab;
 const w = 420 + 20 * 2;
