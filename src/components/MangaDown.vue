@@ -212,7 +212,7 @@ export default {
     };
   },
   computed: {
-    input: function () {
+    input() {
       const lines = this.rawinput.split("\n");
       const komas = [];
       let koma = [];
@@ -246,7 +246,7 @@ export default {
     },
   },
   methods: {
-    toggleDrawingMode: function () {
+    toggleDrawingMode() {
       this.isDrawingMode = !this.isDrawingMode;
       fab.isDrawingMode = this.isDrawingMode;
       fab.freeDrawingBrush.width = 5;
@@ -257,7 +257,7 @@ export default {
         fab.add(img);
       });
     },
-    removeObj: function () {
+    removeObj() {
       if (fab.getActiveGroup()) {
         fab.getActiveGroup().forEachObject(function (o) {
           fab.remove(o);
@@ -268,7 +268,7 @@ export default {
         fab.getActiveObject().remove();
       }
     },
-    exportImage: function () {
+    exportImage() {
       fab.discardActiveObject().renderAll();
       fab.discardActiveGroup().renderAll();
       const eimage = document.querySelector("#export");
@@ -281,7 +281,7 @@ export default {
       destCtx.drawImage(fabel, 0, 0, w, h);
       window.open(eimage.toDataURL("image/png"));
     },
-    redraw: function () {
+    redraw() {
       const text = this.input;
       const ctx = this.ctx;
       ctx.clearRect(0, 0, w, h);
@@ -311,7 +311,7 @@ export default {
     },
   },
   watch: {
-    input: function () {
+    input() {
       this.redraw();
     },
     font: function (item) {
@@ -339,7 +339,7 @@ export default {
       }, 1000);
     },
   },
-  mounted: function () {
+  mounted() {
     const eimage = document.querySelector("#export");
     eimage.width = `${w}`;
     eimage.height = `${h}`;
