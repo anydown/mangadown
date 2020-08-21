@@ -173,15 +173,15 @@ export default {
       fab.isDrawingMode = this.isDrawingMode;
       fab.freeDrawingBrush.width = 5;
     },
-    addImage: function (img) {
-      fabric.Image.fromURL(`/assets/${img}.png`, function (img) {
+    addImage(img) {
+      fabric.Image.fromURL(`/assets/${img}.png`, (img) => {
         img.set("left", 100).set("top", 100);
         fab.add(img);
       });
     },
     removeObj() {
       if (fab.getActiveGroup()) {
-        fab.getActiveGroup().forEachObject(function (o) {
+        fab.getActiveGroup().forEachObject((o) => {
           fab.remove(o);
         });
         fab.discardActiveGroup().renderAll();
@@ -236,8 +236,7 @@ export default {
     input() {
       this.redraw();
     },
-    font: function (item) {
-      const self = this;
+    font(item) {
       const fontName = item;
 
       if (!loadedFonts[item]) {
@@ -251,13 +250,13 @@ export default {
           setTimeout(() => {
             document.fonts.add(loadedFace);
             console.log("font loaded");
-            self.redraw();
+            this.redraw();
           }, 1000);
         });
       }
 
       setTimeout(() => {
-        self.redraw();
+        this.redraw();
       }, 1000);
     },
   },
@@ -286,7 +285,7 @@ export default {
     window.addEventListener("keyup", (ev) => {
       if (ev.keyCode === 46) {
         if (fab.getActiveGroup()) {
-          fab.getActiveGroup().forEachObject(function (o) {
+          fab.getActiveGroup().forEachObject((o) => {
             fab.remove(o);
           });
           fab.discardActiveGroup().renderAll();
@@ -297,12 +296,12 @@ export default {
       }
     });
 
-    document.getElementById("imgLoader").onchange = function handleImage(e) {
+    document.getElementById("imgLoader").onchange = (e) => {
       const reader = new FileReader();
-      reader.onload = function (event) {
+      reader.onload = (event) => {
         const imgObj = new Image();
         imgObj.src = event.target.result;
-        imgObj.onload = function () {
+        imgObj.onload = () => {
           const image = new fabric.Image(imgObj);
           image.set({
             height: 200,
